@@ -1,6 +1,6 @@
-node_modules/
-build/
-logs/
+node_modules
+build
+logs
 .env
 db.sqlite
 

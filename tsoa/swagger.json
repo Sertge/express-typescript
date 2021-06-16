@@ -6,6 +6,27 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"IPost": {
+				"properties": {
+					"description": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"createdDate": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"description",
+					"url",
+					"createdDate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ITodo": {
 				"properties": {
 					"task": {
@@ -44,6 +65,182 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/api/posts/read": {
+			"get": {
+				"operationId": "GetAllPosts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {},
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Posts"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/api/posts/read/{id}": {
+			"get": {
+				"operationId": "ReadPostWithId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Posts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/api/posts/create": {
+			"post": {
+				"operationId": "CreatePost",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Posts"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"createdDate": {
+										"type": "string",
+										"format": "date-time"
+									},
+									"url": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"createdDate",
+									"url",
+									"description"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/posts/update": {
+			"put": {
+				"operationId": "UpdatePost",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Posts"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"properties": {
+											"id": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"id"
+										],
+										"type": "object"
+									},
+									{
+										"$ref": "#/components/schemas/IPost"
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/posts/delete/{id}": {
+			"delete": {
+				"operationId": "DeletePost",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Posts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/api/user-permission/get-all": {
 			"get": {
 				"operationId": "GetAllUser",

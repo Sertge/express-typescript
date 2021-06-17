@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from "typeorm";
+import { User } from "./user";
 
 @Entity({name:'post'})
 export class Post extends BaseEntity{
@@ -13,4 +14,7 @@ export class Post extends BaseEntity{
 
   @Column()
   url:string
+
+  @ManyToOne(()=>User,(user:User)=>user.posts)
+    user:User
 }
